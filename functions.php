@@ -34,7 +34,7 @@ add_action( 'wp_enqueue_scripts', 'oceanwp_child_enqueue_parent_style' );
 // Création menu admin 
 function add_custom_menu_item($items, $args) {
     // Vérifiez que nous sommes sur le bon menu (remplacez 'menu' par le nom du menu spécifique)
-    if ($args->menu =='primary') {
+    // if ($args->menu =='primary' or $args->menu =='Menu responsive') {
         // Vérifiez si l'utilisateur est connecté
         if (is_user_logged_in()) {
             // Si l'utilisateur est administrateur, ajouter un lien vers le tableau de bord
@@ -42,12 +42,11 @@ function add_custom_menu_item($items, $args) {
                 $items .= '<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-77 current_page_item parent hfe-creative-menu"><a class="hfe-menu-item" href="' . admin_url() . '">Admin</a></li>';
             }
         }
-    }
+    // }
     return $items;
 }
 // Ajout du filtre pour ajouter l'élément de menu personnalisé
 add_filter('wp_nav_menu_items', 'add_custom_menu_item', 10, 2);
-
 
 // Création d’un shortcode canette
 function planty_display_shortcode() {
@@ -58,18 +57,21 @@ function planty_display_shortcode() {
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/gauche.png" alt="Gauche branches" class="branches gauche">
                 <img src="<?php echo get_stylesheet_directory_uri();  ?>/assets/droite.png" alt="Droite branches" class="branches droite">
             </div>
-        </div> 
-        <?php   
+        </div>
+        <?php  
     return ob_get_clean();
 }
 add_shortcode('planty_display', 'planty_display_shortcode');
+
 
 // création footer 
 function planty_footer_shortcode() {
     ob_start(); ?>
         <div class="footer_bloc">
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/lot canettes.png" alt="Planty lot Canettes" class="lot_cannette">
-            <p class="mentions">Mentions Légales</p>
+            <p class="mentions">
+                <a href="mentions-legales.html" class="mentions">Mentions Légales</a>
+            </p>
         </div> 
         <?php   
     return ob_get_clean();
